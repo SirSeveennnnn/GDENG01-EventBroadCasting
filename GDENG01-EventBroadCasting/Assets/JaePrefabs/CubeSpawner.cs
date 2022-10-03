@@ -10,7 +10,9 @@ public class CubeSpawner : MonoBehaviour
     void Start()
     {
         this.cubeTemplate.SetActive(false);
-        EventBroadcaster.Instance.AddObserver("SPAWN_CUBE", this.SpawnCube);
+        EventBroadcaster.Instance.AddObserver(EventNames.X22_Events.ON_SPAWN_CUBES, this.SpawnCube);
+        EventBroadcaster.Instance.AddObserver(EventNames.X22_Events.CLEAR_SCENE, this.ClearScene);
+
     }
 
     void OnDestroy()
@@ -29,5 +31,14 @@ public class CubeSpawner : MonoBehaviour
             this.cubeList.Add(instance);
         }
         
+    }
+
+    private void ClearScene()
+    {
+        for (int i = cubeList.Count - 1; i >= 0; i--)
+        {
+            Destroy(cubeList[i]);
+        }
+        cubeList.Clear();
     }
 }

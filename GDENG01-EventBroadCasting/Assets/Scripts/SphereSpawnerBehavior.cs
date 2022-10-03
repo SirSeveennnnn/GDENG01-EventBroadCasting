@@ -14,12 +14,7 @@ public class SphereSpawnerBehavior : MonoBehaviour
     {
         this.template.SetActive(false);
         EventBroadcaster.Instance.AddObserver(EventNames.X22_Events.ON_SPAWN_SPHERE, onSpawnSphere);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        EventBroadcaster.Instance.AddObserver(EventNames.X22_Events.CLEAR_SCENE, this.ClearScene);
     }
 
 
@@ -34,5 +29,14 @@ public class SphereSpawnerBehavior : MonoBehaviour
             spawnCopy.SetActive(true);
 
         }
+    }
+
+    private void ClearScene()
+    {
+        for (int i = spawnList.Count - 1; i >= 0; i--)
+        {
+            Destroy(spawnList[i]);
+        }
+        spawnList.Clear();
     }
 }
